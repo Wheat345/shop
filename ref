@@ -1,0 +1,131 @@
+template:
+http://recursivechaos.com/blog/spring-boot-jpa-mysql/
+https://github.com/netgloo/spring-boot-samples/tree/master/spring-boot-mysql-springdatajpa-hibernate
+
+install mysql in ubuntu
+
+https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-16-04
+
+https://askubuntu.com/questions/82374/how-do-i-start-stop-mysql-server
+
+
+run
+
+http://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-running-your-application.html
+
+modify
+
+change:
+spring.jpa.hibernate.ddl-auto = update
+to:
+spring.jpa.hibernate.ddl-auto = create
+
+then change back:
+
+spring.jpa.hibernate.ddl-auto = update
+
+
+test in postman
+
+
+
+POST:
+
+Header:
+Content-Type:                  application/x-www-form-urlencoded
+
+Body:
+
+choose: x-www-form-urlencoded
+
+add field.
+
+PUT : save as "POST"
+
+
+SECURITY:
+
+ref:
+
+set in momory user password and role:
+
+http://docs.spring.io/spring-security/site/docs/current/guides/html5/helloworld-javaconfig.html
+
+WebSecurityConfigurerAdapter:
+
+http://docs.spring.io/spring-security/site/docs/current/guides/html5/form-javaconfig.html
+
+
+add userdetail:
+
+http://www.mkyong.com/spring-security/spring-security-hibernate-annotation-example/
+
+
+
+CREATE  TABLE credentials (
+  credentialname VARCHAR(45) NOT NULL ,
+  password VARCHAR(60) NOT NULL ,
+  enabled TINYINT NOT NULL DEFAULT 1 ,
+  PRIMARY KEY (credentialname));
+
+CREATE TABLE credential_roles (
+  credential_role_id int(11) NOT NULL AUTO_INCREMENT,
+  credentialname varchar(45) NOT NULL,
+  role varchar(45) NOT NULL,
+  PRIMARY KEY (credential_role_id),
+  UNIQUE KEY uni_credentialname_role (role,credentialname),
+  KEY fk_credentialname_idx (credentialname),
+  CONSTRAINT fk_credentialname FOREIGN KEY (credentialname) REFERENCES credentials (credentialname));
+
+INSERT INTO credentials(credentialname,password,enabled)
+VALUES ('dif','$2a$10$04TVADrR6/SPLBjsK0N30.Jf5fNjBugSACeGv1S69dZALR7lSov0y', true);
+INSERT INTO credentials(credentialname,password,enabled)
+VALUES ('mike','$2a$10$04TVADrR6/SPLBjsK0N30.Jf5fNjBugSACeGv1S69dZALR7lSov0y', true);
+
+INSERT INTO credential_roles (credentialname, role)
+VALUES ('dif', 'ROLE_USER');
+INSERT INTO credential_roles (credentialname, role)
+VALUES ('dif', 'ROLE_ADMIN');
+INSERT INTO credential_roles (credentialname, role)
+VALUES ('mike', 'ROLE_USER');
+
+ref:
+
+http://www.mkyong.com/spring-security/spring-security-hibernate-xml-example/
+
+
+
+ref: 
+http://www.programming-free.com/2016/01/spring-security-spring-data-jpa.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
