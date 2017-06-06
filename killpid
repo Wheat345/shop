@@ -1,0 +1,11 @@
+	
+Run the following command to search for the process that is using the port
+
+lsof -i :<portNumber> | grep LISTEN
+in your case this will be -->
+
+lsof -i :8080 | grep LISTEN
+java    78960 xyxss  119u  IPv6 0x6c20d372bc88c27d      0t0  TCP *:8092 (LISTEN)
+The 78960 is the process id, use the following command to kill the process
+
+kill -9 78960
