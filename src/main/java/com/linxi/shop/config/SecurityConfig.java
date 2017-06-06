@@ -82,7 +82,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(myAuthenticationSuccessHandler)
                 .and()
             .logout()
-                .permitAll();
+            	.logoutUrl("/rest/logout");
+                //.permitAll();
 //				.and().httpBasic()
 //				.authenticationEntryPoint(authEntryPoint);;.httpBasic()
 //
