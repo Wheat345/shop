@@ -21,7 +21,7 @@ import com.linxi.shop.security.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
-@ComponentScan(basePackageClasses = CustomUserDetailsService.class)
+//@ComponentScan(basePackageClasses = CustomUserDetailsService.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 //    @Autowired
@@ -34,8 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 @Autowired 
 	 private UserDetailsService userDetailsService;
 	 
-	 //@Autowired
-	 //private MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
+	 @Autowired
+	 private MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
 	 
 	 @Autowired
 	 public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {    
@@ -67,19 +67,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll()
             	.antMatchers("/").permitAll()
             	.antMatchers("/.").authenticated()
-            	.antMatchers("/rest/**").permitAll()
+            	//.antMatchers("/rest/**").permitAll()
 				//.antMatchers("/rest/**").access("hasRole('ROLE_ADMIN')")
 				//.antMatchers("/rest/**").authenticated()
-				//.antMatchers("/rest/**").hasRole("ADMIN")
+				.antMatchers("/rest/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
-                .loginPage("/login")
+                .loginPage("/login").failureUrl("/login?error=true")
                 //.usernameParameter("username").passwordParameter("password")
                 //.and()
-                //.permitAll()
+                .permitAll()
                 //.defaultSuccessUrl("/rest/listCustomers")
-                //.successHandler(myAuthenticationSuccessHandler)
+                .successHandler(myAuthenticationSuccessHandler)
                 .and()
             .logout()
                 .permitAll();
