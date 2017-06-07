@@ -2,12 +2,14 @@ package com.linxi.shop.controllers;
 
 import com.linxi.shop.models.Customer;
 import com.linxi.shop.models.CustomerDao;
+import com.linxi.shop.models.CustomerRepository;
 
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -15,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,9 +31,8 @@ import com.google.gson.Gson;
 @RequestMapping(value="/rest")
 public class CustomerController {
 	
-  /** The customer dao. */
   @Autowired
-  private CustomerDao customerDao;
+  private CustomerRepository customerRepository;
 
   /**
    * Customer create.
@@ -40,11 +42,13 @@ public class CustomerController {
    */
   @RequestMapping(value="/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody
-  public String customerCreate(Customer customerFromUI) {
+  public String customerCreate(@RequestBody Customer customerFromUI) {
     Customer customer = null;
     try {
       customer = customerFromUI;
-      customerDao.save(customer);
+      //temp
+      //customer.setCustomerid(99L);
+      customerRepository.save(customer);
     }
     catch (Exception ex) {
       return "Error creating the customer: " + ex.toString();
@@ -59,12 +63,14 @@ public class CustomerController {
    * @param id the id
    * @return the string
    */
-  @RequestMapping(value="/delete/{id}", method = RequestMethod.DELETE)
+  @RequestMapping(value="/delete/{customerid}", method = RequestMethod.DELETE)
   @ResponseBody
-  public String delete(@PathVariable("id") String  id) {
+  public String delete(@PathVariable("customerid") String  customerid) {
     try {
-      Customer customer = new Customer(Long.parseLong(id));
-      customerDao.delete(customer);
+    	
+      long customeridlong = NumberUtils.toLong(customerid);
+      Customer customer = new Customer(customeridlong);
+      customerRepository.delete(customer);
     }
     catch (Exception ex) {
       return "Error deleting the customer: " + ex.toString();
@@ -83,8 +89,8 @@ public class CustomerController {
   public String getByEmail(String email) {
     String customerId;
     try {
-      Customer customer = customerDao.findByEmail(email);
-      customerId = String.valueOf(customer.getId());
+      Customer customer = customerRepository.findByEmail(email);
+      customerId = String.valueOf(customer.getCustomerid());
     }
     catch (Exception ex) {
       return "Customer not found";
@@ -102,7 +108,7 @@ public class CustomerController {
   public String listCustomers() {
     List<Customer> listCustomers;
     try {
-      listCustomers = (List<Customer>) customerDao.findAll();
+      listCustomers = (List<Customer>) customerRepository.findAll();
     }
     catch (Exception ex) {
       return null;
@@ -125,7 +131,7 @@ public class CustomerController {
     //TODO: provide findbyid method in customerDao to check customer exist or not
     try {
       customer = customerFromUI;
-      customerDao.save(customer);
+      customerRepository.save(customer);
     }
     catch (Exception ex) {
       return "Error creating the customer: " + ex.toString();
