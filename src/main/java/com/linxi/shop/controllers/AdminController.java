@@ -2,8 +2,6 @@ package com.linxi.shop.controllers;
 
 import com.linxi.shop.models.Customer;
 import com.linxi.shop.models.CustomerRepository;
-import com.linxi.shop.models.User;
-import com.linxi.shop.models.UserRepository;
 
 import java.util.List;
 
@@ -26,37 +24,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 
 @Controller
-@RequestMapping(value="/rest")
-public class CustomerController {
+@RequestMapping(value="/admin")
+public class AdminController {
 	
   @Autowired
   private CustomerRepository customerRepository;
-  @Autowired
-  private UserRepository userRepository;
-  
-  private User user;
-  
-  
-  //Contractor that locate current credential;
-//  public CustomerController() {
-//	this.user = this.getCurrentCredential();
-//}
-
-private User getCurrentCredential() {
-      Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-      String name = auth.getName(); //get logged in username
-      
-      try {
-
-          User user = userRepository.findByUserName(name);
-          return user;
-    	  
-      }catch (Exception e) {
-    	  
-    	  System.out.println("can not find current credential");
-    	  return null;
-      }
-  }
   
   @RequestMapping(value="/createcustomer", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody
@@ -64,9 +36,6 @@ private User getCurrentCredential() {
     Customer customer = null;
     try {
       customer = customerFromUI;
-      user = this.getCurrentCredential();
-      customer.setUserid(user.getUserid());
-      
       customerRepository.save(customer);
     }
     catch (Exception ex) {
@@ -110,8 +79,7 @@ private User getCurrentCredential() {
   public String listCustomers() {
     List<Customer> listCustomers;
     try {
-      user = this.getCurrentCredential();
-      listCustomers = (List<Customer>) customerRepository.findAllbyUserId(user.getUserid());
+      listCustomers = (List<Customer>) customerRepository.findAll();
     }
     catch (Exception ex) {
       return null;
@@ -137,14 +105,5 @@ private User getCurrentCredential() {
     return json;
   }
   
-  @RequestMapping(value="/logout", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-  @ResponseBody
-  public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
-      Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-      if (auth != null){    
-          new SecurityContextLogoutHandler().logout(request, response, auth);
-      }
-      return "redirect:/login?logout";//You can redirect wherever you want, but generally it's a good practice to show login screen again.
-  }
   
 }

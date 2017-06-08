@@ -27,6 +27,10 @@ public class Customer {
 	  private Long customerid;
 	  
 	  @NotNull
+	  @Column(name = "userid")
+	  private Long userid;
+	  
+	  @NotNull
 	  @Column(name = "firstname")
 	  private String firstname;
 	  
@@ -68,10 +72,8 @@ public class Customer {
 		this.customerid = customerid;
 	}
 
-
-
-	public Customer(Long customerid, String firstname, String lastname, String email, String gender, String location,
-			String status, String type, String description) {
+	public Customer(Long customerid, String firstname, String lastname, String email, String gender,
+			String location, String status, String type, String description) {
 		super();
 		this.customerid = customerid;
 		this.firstname = firstname;
@@ -90,6 +92,14 @@ public class Customer {
 
 	public void setCustomerid(Long customerid) {
 		this.customerid = customerid;
+	}
+
+	public Long getUserid() {
+		return userid;
+	}
+
+	public void setUserid(Long userid) {
+		this.userid = userid;
 	}
 
 	public String getFirstname() {
@@ -155,10 +165,7 @@ public class Customer {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
-	  
-	  
+
 	
   
 } // class User

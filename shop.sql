@@ -5,6 +5,7 @@ drop table if exists customer;
 
 CREATE TABLE `customer` (
   `customerid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `userid` int(10) unsigned NOT NULL,
   `firstname` varchar(100) NOT NULL,
   `lastname` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
@@ -18,6 +19,7 @@ CREATE TABLE `customer` (
 
 CREATE TABLE `product` (
   `productid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `userid` int(10) unsigned NOT NULL,
   `name` varchar(100) NOT NULL,
   `catalog` varchar(100) NOT NULL,
   `format` varchar(500) NOT NULL,
@@ -30,6 +32,7 @@ CREATE TABLE `product` (
 CREATE TABLE `transaction` (
   `transactionid` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `customerid` int(10) unsigned NOT NULL,
+  `userid` int(10) unsigned NOT NULL,
   `productids` varchar(500) NOT NULL,
   `created` datetime NOT NULL,
   `paymentmethod` varchar(100) NOT NULL,
