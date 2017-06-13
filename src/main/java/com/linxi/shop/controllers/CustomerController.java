@@ -122,7 +122,7 @@ private User getCurrentCredential() {
   
   @RequestMapping(value="/updatecustomer", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody
-  public String updateCustomer(Customer customerFromUI) {
+  public String updateCustomer(@RequestBody Customer customerFromUI) {
     Customer customer = null;
     
     //TODO: provide findbyid method in customerDao to check customer exist or not
