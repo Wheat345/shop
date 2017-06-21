@@ -124,7 +124,7 @@ private User getCurrentCredential() {
   @ResponseBody
   public String updateCustomer(@RequestBody Customer customerFromUI) {
     Customer customer = null;
-    System.out.println("customer status is " + customerFromUI.getStatus());
+    
     //TODO: provide findbyid method in customerDao to check customer exist or not
     try {
       customer = customerFromUI;
