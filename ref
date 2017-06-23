@@ -112,6 +112,18 @@ https://www.ibm.com/developerworks/library/wa-manage-state-with-redux-p1-david-g
 **very important react intl example with redux**
 https://github.com/Tushant/react-intl/tree/e4037950a60d0cab73cb996feb5721e6c754369d/examples/react-intl-with-redux
 
+git:
+
+git add -A && git commit -m "put your comment"
+
+git push -u origin master
+
+backend run:
+mvn clean install
+mvn spring-boot:run
+
+
+
 
 
 
