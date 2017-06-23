@@ -60,7 +60,6 @@ private User getCurrentCredential() {
     	transaction = transactionFromUI;
       user = this.getCurrentCredential();
       transaction.setUserid(user.getUserid());
-      //transaction.setCreated(new Date());//TODO: need get created from frontend
       
       transactionRepository.save(transaction);
     }
@@ -97,8 +96,7 @@ private User getCurrentCredential() {
     catch (Exception ex) {
       return null;
     }
-    //String json = new Gson().toJson(listTransactions );
-    String json = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create().toJson(listTransactions);
+    String json = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create().toJson(listTransactions);//format date to suit ui 
     return json;
   }
   
@@ -109,7 +107,6 @@ private User getCurrentCredential() {
     
     try {
     	transaction = transactionFromUI;
-        //transaction.setCreated(new Date());//TODO: need get created from frontend
     	transactionRepository.save(transaction);
     }
     catch (Exception ex) {
