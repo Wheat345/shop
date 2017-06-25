@@ -123,7 +123,54 @@ mvn clean install
 mvn spring-boot:run
 
 
+/////////////////////////// deploy shopui
 
+
+#npm install;
+
+how to update npm:
+https://stackoverflow.com/questions/6237295/how-can-i-update-node-js-and-npm-to-the-next-versions
+
+
+install node 4.2.6
+
+tar --strip-components 1 -xzf /node-v4.2.6-linux-x64.tar.gz
+
+
+////////////////////////// deploy shop
+
+install openjdk 8 :
+sudo add-apt-repository ppa:openjdk-r/ppa
+sudo apt-get update
+sudo apt-get install openjdk-8-jdk
+sudo update-alternatives --config java
+sudo update-alternatives --config javac
+
+https://askubuntu.com/questions/464755/how-to-install-openjdk-8-on-14-04-lts
+
+install mysql:
+
+https://dev.mysql.com/doc/refman/5.7/en/creating-database.html
+
+install maven:
+
+https://www.mkyong.com/maven/how-to-install-maven-in-ubuntu/
+
+
+run shop
+
+mvn clean install
+
+mvn spring-boot:run
+
+/////issue when deploy to remote ubuntu:
+
+shop ui: need to change localhost to ip
+
+shop:	need to modify security files : crudsconfig.java and myauthendicationsuccesshandler.java
+	need to modify application.properties: change update to create
+
+db realacted: do forget to import all initial data (two sql file : shop.sql and sql.txt)
 
 
 
