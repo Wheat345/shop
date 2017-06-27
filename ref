@@ -174,6 +174,26 @@ db realacted: do forget to import all initial data (two sql file : shop.sql and 
 
 
 
+///use screen to keep process runing after logout ssh remote connection
+
+
+133
+down vote
+You could do that by using screen.
+
+Type man screen to find out more or read this screen man page.
+
+Simple scenario:
+
+ssh into your remote box. Type screen Then start the process you want.
+Press Ctrl-A then Ctrl-D. This will "detach" your screen session but leave your processes running. You can now log out of the remote box.
+If you want to come back later, log on again and type screen -r This will "resume" your screen session, and you can see the output of your process.
+
+
+ref: https://askubuntu.com/questions/8653/how-to-keep-processes-running-after-ending-ssh-session
+http://gnailuy.com/linux/2011/07/24/beginning-gnu-screen/
+
+
 
 
 
